@@ -1,2 +1,2 @@
 # modules
-test
+test run
