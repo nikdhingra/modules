@@ -25,7 +25,7 @@ jobs:
 
       # Set up Azure credentials for Terraform (optional, if using Azure)
       - name: Azure login
-        uses: azure/setup-azure-credentials@v1
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
