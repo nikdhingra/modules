@@ -27,7 +27,7 @@ jobs:
       - name: Azure login
         uses: azure/setup-azure-credentials@v1
         with:
-          creds: ${{secerts.AZURE_CREDENTIALS ))
+          creds: ${{secerts.AZURE_CREDENTIALS }}
           
       # Initialize Terraform
       - name: Terraform Init
