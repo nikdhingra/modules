@@ -1,1 +1,45 @@
+name: Terraform Deployment
+
+on:
+  push:
+    branches:
+      - main # Run the workflow on push to the main branch
+  pull_request:
+    branches:
+      - main # Run the workflow when a pull request is made to the main branch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: '1.0.0'  # You can specify the required Terraform version
+
+      # Set up Azure credentials for Terraform (optional, if using Azure)
+      - name: Azure login
+        uses: azure/setup-azure-credentials@v1
+        with:
+          creds: ${{secerts.AZURE_CREDENTIALS ))
+          
+      # Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # Terraform Plan (This step checks what will change in your infrastructure)
+      - name: Terraform Plan
+        run: terraform plan
+
+      # Terraform Apply (This step applies the changes if you're ready)
+      - name: Terraform apply
+        run: terraform apply -auto-approve
+
+        
 
