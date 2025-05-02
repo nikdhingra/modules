@@ -1,3 +1,5 @@
+
+# This block creates a hub virtual network.
 resource "azurerm_virtual_network" "hub" {
   name                = var.name
   address_space       = var.address_space
@@ -5,6 +7,8 @@ resource "azurerm_virtual_network" "hub" {
   resource_group_name = var.resource_group_name
 }
 
+# This block creates a subnets within the hub virtual network.
+# Standard Subnet for the hub.
 resource "azurerm_subnet" "hub_subnet" {
   name                 = "hub-subnet"
   resource_group_name  = var.resource_group_name
@@ -12,6 +16,7 @@ resource "azurerm_subnet" "hub_subnet" {
   address_prefixes     = var.subnet_prefixes
 }
 
+# Gateway Subnet for the hub. 
 resource "azurerm_subnet" "gateway_subnet" {
   name                 = "GatewaySubnet"
   resource_group_name  = var.resource_group_name
@@ -19,6 +24,7 @@ resource "azurerm_subnet" "gateway_subnet" {
   address_prefixes     = var.gateway_subnet_prefixes
 }
 
+# Firewall Subnet for the hub.
 resource "azurerm_subnet" "firewall_subnet" {
   name                 = "AzureFirewallSubnet"
   resource_group_name  = var.resource_group_name
@@ -26,6 +32,7 @@ resource "azurerm_subnet" "firewall_subnet" {
   address_prefixes     = var.firewall_subnet_prefixes
 }
 
+# Public IP for the VPN Gateway.
 resource "azurerm_public_ip" "vpn_gw" {
   name                = "${var.name}-gw-pip"
   location            = var.location
@@ -33,6 +40,7 @@ resource "azurerm_public_ip" "vpn_gw" {
   allocation_method   = "Static"
 }
 
+# Virtual Network Gateway for the hub.
 resource "azurerm_virtual_network_gateway" "vpn" {
   name                = "${var.name}-vpngw"
   location            = var.location
@@ -53,6 +61,7 @@ resource "azurerm_virtual_network_gateway" "vpn" {
   }
 }
 
+# Public IP for the Azure Firewall.
 resource "azurerm_public_ip" "firewall" {
   name                = "${var.name}-fw-pip"
   location            = var.location
@@ -61,6 +70,7 @@ resource "azurerm_public_ip" "firewall" {
   sku                 = "Standard"
 }
 
+# Azure Firewall for the hub.
 resource "azurerm_firewall" "fw" {
   name                = "${var.name}-firewall"
   location            = var.location

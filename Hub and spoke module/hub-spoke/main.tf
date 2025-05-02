@@ -1,3 +1,5 @@
+# Calling hub module
+
 module "hub" {
   source              = "./modules/hub"
   name                = "hub-vnet"
@@ -9,7 +11,7 @@ module "hub" {
   firewall_subnet_prefixes = var.firewall_subnet_prefixes
 }
 
-
+# Calling Spoke module
 
 module "spokes" {
   for_each = var.spokes

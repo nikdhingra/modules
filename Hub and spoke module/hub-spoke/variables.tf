@@ -16,7 +16,7 @@ variable "firewall_subnet_prefixes" {
 }
 
 
-
+# Variable for spoke
 variable "spokes" {
   type = map(object({
     address_space   = list(string)

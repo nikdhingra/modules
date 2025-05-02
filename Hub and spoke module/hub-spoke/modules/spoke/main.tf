@@ -1,3 +1,4 @@
+# This is for Spoke VNET.
 resource "azurerm_virtual_network" "spoke" {
   name                = var.name
   address_space       = var.address_space
@@ -5,6 +6,7 @@ resource "azurerm_virtual_network" "spoke" {
   resource_group_name = var.resource_group_name
 }
 
+# This is for Spoke Subnet
 resource "azurerm_subnet" "spoke_subnet" {
   name                 = "spoke-subnet"
   resource_group_name  = var.resource_group_name
@@ -12,6 +14,7 @@ resource "azurerm_subnet" "spoke_subnet" {
   address_prefixes     = var.subnet_prefixes
 }
 
+# VNET Peering Spoke to Hub
 resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   name                      = "${var.name}-to-hub"
   resource_group_name       = var.resource_group_name
@@ -22,6 +25,7 @@ resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   
 }
 
+# VNET Peering Hub to Spoke.
 resource "azurerm_virtual_network_peering" "hub_to_spoke" {
   name                      = "hub-to-${var.name}"
   resource_group_name       = var.resource_group_name
